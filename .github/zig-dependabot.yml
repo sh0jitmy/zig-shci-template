@@ -1,0 +1,37 @@
+name: Zig Dependabot
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Run daily at midnight
+  workflow_dispatch: # Allow manual trigger
+
+permissions:
+  contents: write # Required to push update branches
+  pull-requests: write # Required to create and manage PRs
+  issues: write # Required if you enabled issue creation
+
+jobs:
+  update-deps:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+
+      - name: Setup Zig
+        uses: mlugg/setup-zig@d1434d08867e3ee9daa34448df10607b98908d29 # v2
+        with:
+          version: master
+
+      - name: Run Zig Dependabot
+        uses: muhammad-fiaz/zig-dependabot@3de70e81e0a44c5e4ae1fa1d2561fc13373967c7 # v1
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          # Optional: Add extra trusted domains
+          extra_domains: 'git.sr.ht, my-gitea.com'
+          create_pr: true # default true
+          # Optional: create issue along with PR
+          create_issue: false
+          # Optional: Reopen closed PRs/Issues
+          reopen: false
+          # Optional: Close outdated PRs/Issues
+          close_old: false
