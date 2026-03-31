@@ -1,21 +1,23 @@
 name: Tag PR
 
 on:
-  pull_request:
-    types: [closed]
+  push:
+    branches: [main]
 
-permissions:
-  contents: write
-  pull-requests: write
 
 jobs:
   tagpr:
-    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
-
+    permissions:
+        contents: write
+        pull-requests: write
+        issues: write
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
+      - name: Check GITHUB_TOKEN
+        run: echo "${{ secrets.GITHUB_TOKEN != '' }}"
+
       - uses: Songmu/tagpr@b3fb89424646b06c8aa460f50307c60b6a541425 # v1.17.1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
