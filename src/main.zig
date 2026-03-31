@@ -12,6 +12,6 @@ pub fn main() !void {
 
     const fizz = lib.fizzBuzz(15);
     try stdout.print("fizzBuzz(15) = {s}\n", .{fizz});
-    
+
     try stdout.print("version = {s}\n", .{version});
 }
