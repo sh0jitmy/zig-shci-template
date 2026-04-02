@@ -7,9 +7,11 @@ pub fn build(b: *std.Build) void {
     // Executable
     const exe = b.addExecutable(.{
         .name = "zig-ci-sample",
-        .root_source_file = b.path("src/main.zig"),
-        .target = target,
-        .optimize = optimize,
+        .root_module = b.createModule(.{
+            .root_source_file = b.path("src/main.zig"),
+            .target = target,
+            .optimize = optimize,
+        }),
     });
     b.installArtifact(exe);
 
@@ -24,9 +26,11 @@ pub fn build(b: *std.Build) void {
 
     // Unit tests
     const lib_tests = b.addTest(.{
-        .root_source_file = b.path("src/lib.zig"),
-        .target = target,
-        .optimize = optimize,
+        .root_module = b.createModule(.{
+            .root_source_file = b.path("src/lib.zig"),
+            .target = target,
+            .optimize = optimize,
+        }),
     });
     const run_lib_tests = b.addRunArtifact(lib_tests);
 
