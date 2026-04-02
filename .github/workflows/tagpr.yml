@@ -8,6 +8,12 @@ on:
 jobs:
   tagpr:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target:
+          - x86_64-linux
+          - aarch64-linux
+          - x86_64-macos
     permissions:
         contents: write
         pull-requests: write
@@ -18,6 +24,38 @@ jobs:
       - name: Check GITHUB_TOKEN
         run: echo "${{ secrets.GITHUB_TOKEN != '' }}"
 
-      - uses: Songmu/tagpr@b3fb89424646b06c8aa460f50307c60b6a541425 # v1.17.1
+      - name: Run tagpr
+        id: tagpr
+        uses: Songmu/tagpr@b3fb89424646b06c8aa460f50307c60b6a541425 # v1.17.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Import GPG key
+        id: import_gpg
+        uses: crazy-max/ghaction-import-gpg@2dc316deee8e90f13e1a351ab510b4d5bc0c82cd # v7.0.0
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.GPG_PASSPHRASE }}
+          git_user_signingkey: true
+          git_commit_gpgsign: true
+        if: ${{ steps.tagpr.outputs.tag != ''}}
+      
+      - name: Setup Zig
+        uses: goto-bus-stop/setup-zig@abea47f85e598557f500fa1fd2ab7464fcb39406 # v2.2.1
+        with:
+          version: 0.12.0
+
+      - name: Build
+        run: zig build -Dtarget=${{ matrix.target }} -Doptimize=ReleaseFast
+
+      - name: Archive
+        run: |
+          mkdir dist
+          cp zig-out/bin/* dist/
+          tar -czf app-${{ matrix.target }}.tar.gz -C dist .
+
+      - name: Upload Release
+        uses: softprops/action-gh-release@153bb8e04406b158c6c84fc1615b65b24149a1fe # v2.6.1
+        with:
+          files: app-*.tar.gz
+
