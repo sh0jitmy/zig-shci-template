@@ -43,19 +43,23 @@ jobs:
       - name: Setup Zig
         uses: goto-bus-stop/setup-zig@abea47f85e598557f500fa1fd2ab7464fcb39406 # v2.2.1
         with:
-          version: 0.12.0
+          version: 0.15.2
+        if: ${{ steps.tagpr.outputs.tag != ''}}
 
       - name: Build
         run: zig build -Dtarget=${{ matrix.target }} -Doptimize=ReleaseFast
+        if: ${{ steps.tagpr.outputs.tag != ''}}
 
       - name: Archive
         run: |
           mkdir dist
           cp zig-out/bin/* dist/
           tar -czf app-${{ matrix.target }}.tar.gz -C dist .
+        if: ${{ steps.tagpr.outputs.tag != ''}}
 
       - name: Upload Release
         uses: softprops/action-gh-release@153bb8e04406b158c6c84fc1615b65b24149a1fe # v2.6.1
         with:
           files: app-*.tar.gz
+        if: ${{ steps.tagpr.outputs.tag != ''}}
 
