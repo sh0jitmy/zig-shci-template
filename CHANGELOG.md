@@ -4,6 +4,10 @@
 - update: zip version up by @sh0jitmy in https://github.com/sh0jitmy/zig-shci-template/pull/7
 - fix: output tag check by @sh0jitmy in https://github.com/sh0jitmy/zig-shci-template/pull/9
 
+## [v0.0.2](https://github.com/sh0jitmy/zig-shci-template/compare/v0.0.1...v0.0.2) - 2026-04-02
+- update: zip version up by @sh0jitmy in https://github.com/sh0jitmy/zig-shci-template/pull/7
+- fix: output tag check by @sh0jitmy in https://github.com/sh0jitmy/zig-shci-template/pull/9
+
 ## [v0.0.1](https://github.com/sh0jitmy/zig-shci-template/commits/v0.0.1) - 2026-03-31
 - tagpr release by @sh0jitmy in https://github.com/sh0jitmy/zig-shci-template/pull/2
 - fix: add permission by @sh0jitmy in https://github.com/sh0jitmy/zig-shci-template/pull/3
