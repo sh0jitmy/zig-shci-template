@@ -1,2 +1,2 @@
 // DO NOT EDIT: managed by tagpr
-pub const version = "v0.0.5";
+pub const version = "v0.0.6";
