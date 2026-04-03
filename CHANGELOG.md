@@ -2,6 +2,10 @@
 
 ## [v0.0.7](https://github.com/sh0jitmy/zig-shci-template/compare/v0.0.6...v0.0.7) - 2026-04-03
 - fix: pin by @sh0jitmy in https://github.com/sh0jitmy/zig-shci-template/pull/19
+- Release for v0.0.7 by @github-actions[bot] in https://github.com/sh0jitmy/zig-shci-template/pull/20
+
+## [v0.0.7](https://github.com/sh0jitmy/zig-shci-template/compare/v0.0.6...v0.0.7) - 2026-04-03
+- fix: pin by @sh0jitmy in https://github.com/sh0jitmy/zig-shci-template/pull/19
 
 ## [v0.0.6](https://github.com/sh0jitmy/zig-shci-template/compare/v0.0.5...v0.0.6) - 2026-04-03
 - update: build multiple by @sh0jitmy in https://github.com/sh0jitmy/zig-shci-template/pull/17
