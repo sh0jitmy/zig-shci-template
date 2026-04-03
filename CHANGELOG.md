@@ -1,5 +1,8 @@
 # Changelog
 
+## [v0.0.5](https://github.com/sh0jitmy/zig-shci-template/compare/v0.0.4...v0.0.5) - 2026-04-03
+- update: tagpr by @sh0jitmy in https://github.com/sh0jitmy/zig-shci-template/pull/15
+
 ## [v0.0.4](https://github.com/sh0jitmy/zig-shci-template/compare/v0.0.3...v0.0.4) - 2026-04-02
 - rm release workflow by @sh0jitmy in https://github.com/sh0jitmy/zig-shci-template/pull/13
 
