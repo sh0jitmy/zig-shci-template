@@ -4,20 +4,15 @@ on:
   push:
     branches: [main]
 
-
 jobs:
   tagpr:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        target:
-          # - x86_64-linux
-          # - aarch64-linux
-          - x86_64-macos
     permissions:
-        contents: write
-        pull-requests: write
-        issues: write
+      contents: write
+      pull-requests: write
+      issues: write
+    outputs:
+      tag: ${{ steps.tagpr.outputs.tag }}
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
@@ -31,37 +26,44 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Import GPG key
-        id: import_gpg
         uses: crazy-max/ghaction-import-gpg@2dc316deee8e90f13e1a351ab510b4d5bc0c82cd # v7.0.0
         with:
           gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
           passphrase: ${{ secrets.GPG_PASSPHRASE }}
           git_user_signingkey: true
           git_commit_gpgsign: true
-        if: ${{ steps.tagpr.outputs.tag != ''}}
-      
+        if: ${{ steps.tagpr.outputs.tag != '' }}
+
+  build:
+    needs: tagpr
+    if: ${{ needs.tagpr.outputs.tag != '' }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target:
+          - x86_64-linux
+          - aarch64-macos
+          - x86_64-macos
+    steps:
+      - uses: actions/checkout@v6
+
       - name: Setup Zig
         uses: goto-bus-stop/setup-zig@abea47f85e598557f500fa1fd2ab7464fcb39406 # v2.2.1
         with:
           version: 0.15.2
-        if: ${{ steps.tagpr.outputs.tag != ''}}
 
       - name: Build
         run: zig build -Dtarget=${{ matrix.target }} -Doptimize=ReleaseFast
-        if: ${{ steps.tagpr.outputs.tag != ''}}
 
       - name: Archive
         run: |
-          mkdir dist
+          mkdir -p dist
           cp zig-out/bin/* dist/
           tar -czf app-${{ matrix.target }}.tar.gz -C dist .
-        if: ${{ steps.tagpr.outputs.tag != ''}}
 
       - name: Upload Release
         uses: softprops/action-gh-release@153bb8e04406b158c6c84fc1615b65b24149a1fe # v2.6.1
         with:
-          files: app-*.tar.gz
-          tag_name: ${{ steps.tagpr.outputs.tag }}
-
-        if: ${{ steps.tagpr.outputs.tag != ''}}
+          files: app-${{ matrix.target }}.tar.gz
+          tag_name: ${{ needs.tagpr.outputs.tag }}
 
