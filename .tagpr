@@ -45,6 +45,6 @@
 [tagpr]
 	vPrefix = true
 	releaseBranch = main
-	versionFile = src/version.zig
+	versionFile = build.zig.zon,src/version.zig 
 	majorLabels = release-major
 	minorLabels = release-minor
