@@ -45,6 +45,7 @@
 [tagpr]
 	vPrefix = true
 	releaseBranch = main
-	versionFile = build.zig.zon,src/version.zig 
+	versionFile = src/version.zig 
 	majorLabels = release-major
 	minorLabels = release-minor
+	command="chmod +x ./update-version.sh && ./update-version.sh"

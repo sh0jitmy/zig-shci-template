@@ -1,6 +1,6 @@
 .{
     .name = .ci_sample, // enum literal for the project name
-    .version = "0.1.0",
+    .version = "0.0.8",
     .minimum_zig_version = "0.15.2",
     .paths = .{
         "build.zig",
