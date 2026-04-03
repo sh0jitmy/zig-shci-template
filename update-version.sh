@@ -49,18 +49,7 @@ grep '\.version' "$ZON_FILE"
 echo "=== sed test ==="
 sed -E "$REPLACE_EXPR" "$ZON_FILE" | grep '\.version'
 
-
-
-
-if command -v gsed >/dev/null 2>&1; then
-  SED=gsed
-  SED_INPLACE=(-i)
-else
-  SED=sed
-  SED_INPLACE=(-i '')
-fi
-
-"$SED" -E "${SED_INPLACE[@]}" "$REPLACE_EXPR" "$ZON_FILE"
+sed -E -i '' "s@\.version[[:space:]]*=[[:space:]]*\"[^\"]+\"@.version = \"${VERSION_STRIPPED}\"@" "$ZON_FILE"
 
 
 cat <<EOF
