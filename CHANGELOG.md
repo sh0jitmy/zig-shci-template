@@ -1,5 +1,14 @@
 # Changelog
 
+## [v0.0.8](https://github.com/sh0jitmy/zig-shci-template/compare/v0.0.7...v0.0.8) - 2026-05-03
+- feat: merge zon by @sh0jitmy in https://github.com/sh0jitmy/zig-shci-template/pull/22
+- feat: zon sync by @sh0jitmy in https://github.com/sh0jitmy/zig-shci-template/pull/24
+- fix: sed by @sh0jitmy in https://github.com/sh0jitmy/zig-shci-template/pull/25
+- refactor: version up zig 0.16.0 by @sh0jitmy in https://github.com/sh0jitmy/zig-shci-template/pull/31
+- ci: bump Songmu/tagpr from 1.17.1 to 1.18.3 by @dependabot[bot] in https://github.com/sh0jitmy/zig-shci-template/pull/30
+- ci: bump softprops/action-gh-release from 2.6.1 to 3.0.0 by @dependabot[bot] in https://github.com/sh0jitmy/zig-shci-template/pull/29
+- ci: bump actions/upload-artifact from 7.0.0 to 7.0.1 by @dependabot[bot] in https://github.com/sh0jitmy/zig-shci-template/pull/27
+
 ## [v0.0.7](https://github.com/sh0jitmy/zig-shci-template/compare/v0.0.6...v0.0.7) - 2026-04-03
 - fix: pin by @sh0jitmy in https://github.com/sh0jitmy/zig-shci-template/pull/19
 - Release for v0.0.7 by @github-actions[bot] in https://github.com/sh0jitmy/zig-shci-template/pull/20
